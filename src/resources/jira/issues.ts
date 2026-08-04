@@ -224,7 +224,7 @@ export function registerIssueResources(server: McpServer) {
           formattedIssues,
           'issues',
           issuesListSchema,
-          response.total,
+          response.total || response.issues?.length || 0,
           limit,
           offset,
           `${config.baseUrl}/issues/?jql=${encodeURIComponent(jqlQuery)}`
