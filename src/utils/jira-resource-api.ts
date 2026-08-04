@@ -107,13 +107,13 @@ export async function searchIssues(config: AtlassianConfig, jql: string, maxResu
         ".atlassian.net"
       );
     }
-    const url = `${baseUrl}/rest/api/3/search`;
+    const url = `${baseUrl}/rest/api/3/search/jql`;
     logger.debug(`Searching issues with JQL: ${jql}`);
     logger.debug(`With Auth: ${config.email}:*****`);
     const data = {
-      jql,
+      jql: jql || "project is not empty order by created DESC",
       maxResults,
-      expand: ["names", "schema", "operations"],
+      expand: "names,schema,operations",
     };
     const curlCmd = `curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -H "User-Agent: MCP-Atlassian-Server/1.0.0" -u "${
       config.email
